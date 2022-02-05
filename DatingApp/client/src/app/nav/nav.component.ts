@@ -11,30 +11,32 @@ import { AccountService } from '../services/account.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  // loggedIn: boolean = false;
+  loggedIn: boolean = false;
   currentUser$: Observable<User | null>;
 
   constructor(private accountService: AccountService) {
     this.currentUser$ = this.accountService.currentUser$;
   }
-
   ngOnInit(): void {
-
+    this.getCurrentUser();
   }
-  logout() {
+
+  logout(){
     this.accountService.logout();
   }
 
-  login() {
+  login(){
     this.accountService.login(this.model)
-    .subscribe(response => {
+    .subscribe(response =>{
       console.log(response);
-    }, error => {
-      console.log('Failed to login', error);
-    }, () => {
-      console.log('Login complete');
+    },error => {
+      console.log("Failed to login", error);
     });
   }
 
-
+  getCurrentUser(){
+    this.accountService.currentUser$.subscribe((user:User | null) => {
+        this.loggedIn = !!user;
+    });
+  }
 }
