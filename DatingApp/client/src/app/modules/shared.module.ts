@@ -8,9 +8,11 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [],
   imports: [
     CommonModule,
-    ToastrModule
-  ],
+    ToastrModule.forRoot({
+      positionClass:"toast-bottom-right"
+    })],
   exports:[
+      ToastrModule
   ],
 })
 export class SharedModule { }
