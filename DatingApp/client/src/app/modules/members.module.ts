@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from './shared.module';
 import { MemberCardComponent } from '../members/member-card/member-card.component';
 
+
 const routs: Routes = [
   {path: '', component: MemberListComponent, pathMatch:'full'},
   {path: ':username', component: MemberDetailComponent}

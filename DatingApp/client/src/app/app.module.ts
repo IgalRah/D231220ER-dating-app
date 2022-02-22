@@ -18,6 +18,7 @@ import { ErrorInterceptor } from './interceptor/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { jwtInterceptor } from './interceptor/jwt.interceptor';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { jwtInterceptor } from './interceptor/jwt.interceptor';
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
+    MemberEditComponent
   ],
   imports: [
     SharedModule,
@@ -41,7 +43,7 @@ import { jwtInterceptor } from './interceptor/jwt.interceptor';
     FormsModule,
     CoreModule,
     MembersModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {
