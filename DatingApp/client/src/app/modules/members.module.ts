@@ -4,10 +4,11 @@ import { MemberListComponent } from '../members/member-list/member-list.componen
 import { MemberDetailComponent } from '../members/member-detail/member-detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from './shared.module';
+import { MemberCardComponent } from '../members/member-card/member-card.component';
 
 const routs: Routes = [
   {path: '', component: MemberListComponent, pathMatch:'full'},
-  {path: ':id', component: MemberDetailComponent},
+  {path: ':username', component: MemberDetailComponent},
 
 ];
 
@@ -15,6 +16,7 @@ const routs: Routes = [
   declarations: [
     MemberListComponent,
     MemberDetailComponent,
+    MemberCardComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ const routs: Routes = [
     RouterModule,
     MemberListComponent,
     MemberDetailComponent,
+    MemberCardComponent
   ],
 })
 export class MembersModule { }
