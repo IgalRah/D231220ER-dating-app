@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { AccountService } from '../services/account.service';
+import { Member } from 'src/app/models/member';
+import { MembersService } from 'src/app/services/members.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -14,17 +16,22 @@ import { AccountService } from '../services/account.service';
 export class NavComponent implements OnInit {
   model: any = {};
   currentUser$: Observable<User | null>;
+  member:Member;
 
   constructor(
-    private accountService: AccountService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private accountService: AccountService,
+    private memberService: MembersService
     ) {
 
     this.currentUser$ = this.accountService.currentUser$;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadMember();
+  }
 
   logout() {
     this.router.navigateByUrl('/');
@@ -39,5 +46,8 @@ export class NavComponent implements OnInit {
     });
   }
 
-  
+  loadMember(){
+    const username = this.route.snapshot.paramMap.get('username') as string;
+    this.memberService.getMember(username).subscribe(member => this.member = member)
+  }
 }

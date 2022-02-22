@@ -8,8 +8,7 @@ import { MemberCardComponent } from '../members/member-card/member-card.componen
 
 const routs: Routes = [
   {path: '', component: MemberListComponent, pathMatch:'full'},
-  {path: ':username', component: MemberDetailComponent},
-
+  {path: ':username', component: MemberDetailComponent}
 ];
 
 @NgModule({
@@ -23,6 +22,7 @@ const routs: Routes = [
     RouterModule.forChild(routs),
     SharedModule
   ],
+
   exports:[
     RouterModule,
     MemberListComponent,

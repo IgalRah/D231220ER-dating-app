@@ -33,6 +33,7 @@ import { jwtInterceptor } from './interceptor/jwt.interceptor';
     ServerErrorComponent,
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
