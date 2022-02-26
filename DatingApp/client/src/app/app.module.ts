@@ -19,6 +19,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { jwtInterceptor } from './interceptor/jwt.interceptor';
 import { MemberEditComponent } from './member-edit/member-edit.component';
+import { LoadingInterceptor } from './interceptor/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,11 @@ import { MemberEditComponent } from './member-edit/member-edit.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: jwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true
     }
   ],
