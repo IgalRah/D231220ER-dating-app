@@ -20,6 +20,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { jwtInterceptor } from './interceptor/jwt.interceptor';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { LoadingInterceptor } from './interceptor/loading.interceptor';
+import { PhotoEditorComponent } from './member-edit/photo-editor/photo-editor.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { LoadingInterceptor } from './interceptor/loading.interceptor';
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     SharedModule,
@@ -44,7 +47,7 @@ import { LoadingInterceptor } from './interceptor/loading.interceptor';
     FormsModule,
     CoreModule,
     MembersModule,
-    SharedModule,
+    SharedModule
   ],
   providers: [
     {
