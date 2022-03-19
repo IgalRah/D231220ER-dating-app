@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
@@ -11,16 +13,16 @@ import { RegisterComponent } from './register/register.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { CoreModule } from './modules/core.module';
-import { MembersModule } from './modules/members.module';
-import { SharedModule } from './modules/shared.module';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
-import { ErrorInterceptor } from './interceptor/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { jwtInterceptor } from './interceptor/jwt.interceptor';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { SharedModule } from './modules/shared.module';
 import { MemberEditComponent } from './member-edit/member-edit.component';
-import { LoadingInterceptor } from './interceptor/loading.interceptor';
 import { PhotoEditorComponent } from './member-edit/photo-editor/photo-editor.component';
+import { TextInputComponent } from './forms/text-input/text-input.component';
+import { DateInputComponent } from './forms/date-input/date-input.component';
+
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { PhotoEditorComponent } from './member-edit/photo-editor/photo-editor.co
     NavComponent,
     HomeComponent,
     RegisterComponent,
-
+    TextInputComponent,
+    DateInputComponent,
     ListsComponent,
     MessagesComponent,
     TestErrorsComponent,
@@ -37,7 +40,7 @@ import { PhotoEditorComponent } from './member-edit/photo-editor/photo-editor.co
     ServerErrorComponent,
     MemberEditComponent,
     PhotoEditorComponent
-  ],
+   ],
   imports: [
     SharedModule,
     BrowserModule,
@@ -45,28 +48,12 @@ import { PhotoEditorComponent } from './member-edit/photo-editor/photo-editor.co
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    CoreModule,
     ReactiveFormsModule,
-    MembersModule,
-    SharedModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: jwtInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true
-    }
+    CoreModule,
+
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
