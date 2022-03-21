@@ -26,7 +26,7 @@ namespace API.Helpers
 
             CreateMap<Photo,PhotoDto>();
 
-            CreateMap<MemberUpdateDto,AppUser>();
+            CreateMap<MemberUpdateDTO,AppUser>();
 
             CreateMap<RegisterDto,AppUser>()
             .ForMember(

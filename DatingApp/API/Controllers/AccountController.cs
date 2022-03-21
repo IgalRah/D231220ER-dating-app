@@ -1,4 +1,6 @@
+using System.Linq;
 using System.Security.Cryptography;
+using System.Net;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
@@ -6,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using API.DTOs;
 using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
-using System.Linq;
 using AutoMapper;
 
 namespace API.Controllers
@@ -35,7 +36,7 @@ namespace API.Controllers
             //user.UserName = registerDto.Username.ToLower();
             user.PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(registerDto.Password));
             user.PasswordSalt = hmac.Key;
-
+            
             _context.Users.Add(user);
 
             await _context.SaveChangesAsync();

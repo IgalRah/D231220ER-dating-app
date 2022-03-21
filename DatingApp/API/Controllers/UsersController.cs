@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 namespace API.Controllers
 {
     [Authorize]
@@ -26,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        public async Task<ActionResult> UpdateUser(MemberUpdateDTO memberUpdateDto)
         {
             var username = User.GetUserName();
             var user = await _userRepository.GetUserByUserNameAsync(username);
@@ -46,6 +47,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
             var usersToReturn = await _userRepository.GetMembersAsync();
+            
             return Ok(usersToReturn);
         }
 

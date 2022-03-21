@@ -12,7 +12,7 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource$ = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource$.asObservable();
-  
+
   constructor(private http: HttpClient) { }
 
   login(model: any) {
@@ -36,15 +36,18 @@ export class AccountService {
     this.currentUserSource$.next();
   }
 
-  register(model: any){
+  register(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/register', model)
-    .pipe(
-      map((user: User) => {
-        if(user){
-          this.setCurrentUser(user);
-        }
-        return user;
-      })
-    )
+      .pipe(
+        map((user: User) => {
+          if(user){
+            this.setCurrentUser(user);
+          }
+          return user;
+        })
+      )
   }
+
+
+
 }

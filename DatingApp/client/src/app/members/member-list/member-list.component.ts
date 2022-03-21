@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { Member } from 'src/app/models/member';
 import { MembersService } from 'src/app/services/members.service';
 
@@ -17,4 +17,7 @@ export class MemberListComponent implements OnInit {
   ngOnInit(): void {
     this.members$ = this.memberService.getMembers();
   }
+
+
+
 }

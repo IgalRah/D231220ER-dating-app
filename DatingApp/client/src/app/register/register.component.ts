@@ -1,8 +1,7 @@
-import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter<boolean>();
   registerForm: FormGroup;
   maxDate: Date;
-  validationErrors: string[] = [];
+  validationErrors: String[] = [];
 
   constructor(
     private accountService: AccountService,
@@ -39,9 +38,6 @@ export class RegisterComponent implements OnInit {
         if(Array.isArray(error)) {
           this.validationErrors = error;
         }
-
-        // this.toastr.error(error.error)
-        // console.log(error)
 
       }
     )
