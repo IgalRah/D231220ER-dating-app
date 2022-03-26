@@ -20,7 +20,7 @@ busy(){
     undefined,{
       bdColor: 'rgb(255,255,255,0)',
       color: '#333333',
-      type: 'pacman'
+      type: 'square-loader'
     }
   )
 }

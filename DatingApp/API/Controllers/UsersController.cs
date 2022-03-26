@@ -31,7 +31,7 @@ namespace API.Controllers
         public async Task<ActionResult> UpdateUser(MemberUpdateDTO memberUpdateDto)
         {
             var username = User.GetUserName();
-            var user = await _userRepository.GetUserByUserNameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
 
             _mapper.Map(memberUpdateDto, user);
 
@@ -47,6 +47,13 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
+            if(string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            }
+            userParams.CurrentUsername = user.UserName;
+
             var users = await _userRepository.GetMembersAsync(userParams);
             Response.AddPaginationHeader(
                 users.CurrentPage,
@@ -68,7 +75,7 @@ namespace API.Controllers
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
             var username = User.GetUserName();
-            var user = await _userRepository.GetUserByUserNameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
 
             var result = await _photoService.UploadPhotoAsync(file);
 
@@ -99,7 +106,7 @@ namespace API.Controllers
         public async Task<ActionResult> setMainPhoto(int photoId){
 
             var username = User.GetUserName();
-            var user = await _userRepository.GetUserByUserNameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 
             if(photo.IsMain) return BadRequest("This is already the main photo");
@@ -118,7 +125,7 @@ namespace API.Controllers
         public async Task<ActionResult> DeletePhoto(int photoId){
 
             var username = User.GetUserName();
-            var user = await _userRepository.GetUserByUserNameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
             var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
             
             if(photo == null) return BadRequest("Photo not found");
