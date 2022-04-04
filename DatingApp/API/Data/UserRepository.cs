@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,8 +9,6 @@ using API.DTOs;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using API.Helpers;
-using System.Data;
-using System;
 
 namespace API.Data
 {
@@ -24,27 +23,32 @@ namespace API.Data
             _context = context;
         }
 
-        public  async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            var query = _context.Users.AsQueryable();
             
+            var query = _context.Users.AsQueryable();
+
             query = query.Where(x => x.UserName != userParams.CurrentUsername);
             query = query.Where(x => x.Gender == userParams.Gender);
 
-            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+            // 20-30
+            
+            var minDob = DateTime.Today.AddYears(-userParams.MaxAge -1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
 
             query = query.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
-
-            query = userParams.OrderBy switch{
+            
+          
+            query = userParams.OrderBy switch
+            {
                 "created" => query.OrderByDescending(x => x.Created),
-                _ => query.OrderByDescending(x => x.LastActive), 
+                _ => query.OrderByDescending(x => x.LastActive),
             };
 
             return await PagedList<MemberDto>.CreateAsync
             (
                 query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking(),
-                userParams.PageNumber,
+                userParams.PageNumber, 
                 userParams.PageSize
             );
         }
@@ -62,7 +66,7 @@ namespace API.Data
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<AppUser> GetUserByUsernameAsync(string username)
+        public async Task<AppUser> GetUserByUserNameAsync(string username)
         {
             return await _context.Users
             .Include(x => x.Photos)
@@ -88,5 +92,7 @@ namespace API.Data
         {
             _context.Entry<AppUser>(user).State = EntityState.Modified;
         }
+
+        
     }
 }

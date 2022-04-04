@@ -2,11 +2,10 @@ namespace API.Entities
 {
     public class UserLike
     {
-        public AppUser SourceUser { get; set; } // The user thats liking
+        public AppUser SourceUser { get; set; } //the user that is liking the liked user
         public int SourceUserId { get; set; }
-
-        public AppUser LikedUser { get; set; } // The user thats is being liked
+        
+        public AppUser LikedUser { get; set; } //the user that is being liked
         public int LikedUserId { get; set; }
-
     }
 }

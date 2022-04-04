@@ -5,7 +5,6 @@ using API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace API.Extensions
 {
@@ -15,11 +14,10 @@ namespace API.Extensions
         {
 
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
-
-            services.AddScoped<ILikesRepository, LikeRepository>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPhotoService,PhotoService>();
             services.AddScoped<IUserRepository, UserRepository>();
             
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class LikeRepository : ILikesRepository
+    public class LikesRepository : ILikesRepository
     {
         private readonly DataContext _context;
 
-        public LikeRepository(DataContext context)
+        public LikesRepository(DataContext context)
         {
             _context = context;
         }
@@ -43,7 +43,7 @@ namespace API.Data
                 Id = user.Id,
                 KnownAs = user.KnownAs,
                 PhotoUser = user.Photos.FirstOrDefault(p => p.IsMain).Url,
-                UserName = user.UserName
+                Username = user.UserName
             }).ToListAsync();
 
         }

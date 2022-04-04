@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using API.Extensions;
 
 namespace API.Entities
 {
@@ -21,17 +22,17 @@ namespace API.Entities
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
 
+      
         /// <summary>
-        /// Who liked this currently logged in user
-        /// </summary>
-        public ICollection<UserLike> LikedByUser { get; set; }
+        /// who liked this currently logged in user.
+        /// </summary> 
+        public ICollection<UserLike> LikedByUsers { get; set; }
 
         /// <summary>
-        /// Who this user liked
-        /// </summary>
+        /// who this user liked.
+        /// </summary> 
         public ICollection<UserLike> LikedUsers { get; set; } 
 
-        
-      
+
     }
 }
