@@ -24,8 +24,6 @@ namespace API.DTOs
 
         public DateTime MessageSent { get; set; }
 
-        
-
     }
 
 }

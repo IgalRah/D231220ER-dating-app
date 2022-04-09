@@ -60,12 +60,11 @@ namespace API.Controllers
 
             // if we hade a url to an individual message wh should have added the Created At Route directive
             if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
-
-            return BadRequest("Failed to send message");
+            return BadRequest("Failed to send the message");
         }
 
         [HttpGet] //api/messages
-        public async Task<ActionResult<PagedList<MessageDto>>> GetMessagesGorUser([FromQuery] MessageParams messageParams)
+        public async Task<ActionResult<PagedList<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
 
             messageParams.Username = User.GetUsername();
@@ -103,6 +102,5 @@ namespace API.Controllers
             return BadRequest("Failed to delete the message");
 
         }
-
     }
 }
