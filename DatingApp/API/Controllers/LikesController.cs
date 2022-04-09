@@ -38,7 +38,7 @@ namespace API.Controllers
             if(sourceUser.UserName == username) return BadRequest("you can't like yourself");
 
             var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
-            if(userLike != null) return BadRequest("you already like this user");
+            if(userLike != null) return BadRequest("you already liked this user");
 
 
             userLike = new UserLike {
@@ -50,6 +50,27 @@ namespace API.Controllers
 
             if(await _userRepository.SaveAllAsync()) return Ok();
             return BadRequest("Failed to like user");
+        }
+        [HttpDelete("{username}")]
+        public async Task<ActionResult> RemoveLike(string username){
+            var sourceUserId = User.GetUserId();
+
+            var likedUser = await _userRepository.GetUserByUserNameAsync(username);
+            var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId);
+
+            if(likedUser == null) return NotFound();
+
+            if(sourceUser.UserName == username) return BadRequest("you can't dislike like yourself");
+
+            var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
+
+            if(userLike != null){
+
+                sourceUser.LikedUsers.Remove(userLike);
+            }
+
+            if(await _userRepository.SaveAllAsync()) return Ok();
+            return BadRequest("Failed to dislike user");
         }
 
         [HttpGet]

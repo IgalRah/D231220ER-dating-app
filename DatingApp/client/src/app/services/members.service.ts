@@ -34,6 +34,10 @@ export class MembersService {
       });
   }
 
+  removeLike(username: string){
+
+  }
+
   addLike(username: string) {
     const url = `${this.baseUrl}likes/${username}`;
     return this.http.post(url, {});
@@ -78,8 +82,6 @@ export class MembersService {
         tap(res => this.memberCache.set(cacheKey, res))
       );
   }
-
-
 
   getMember(username: string): Observable<Member> {
 
