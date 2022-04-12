@@ -58,9 +58,9 @@ namespace API.Controllers
 
             _messageRepository.AddMessage(message);
 
-            // if we hade a url to an individual message wh should have added the Created At Route directive
+            // if we hade a url to an individual message we should have added the Created At Route directive
             if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
-            return BadRequest("Failed to send the message");
+            return BadRequest("Failed to send message");
         }
 
         [HttpGet] //api/messages
