@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Authorize]
-    public class MessagesController : BaseApiController
+    public class MessagesController : BaseApiController<MessagesController>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMessageRepository _messageRepository;
@@ -88,16 +88,16 @@ namespace API.Controllers
             var username = User.GetUsername();
             var message = await _messageRepository.GetMessage(id);
 
-            if(message == null) return NotFound();
+            if (message == null) return NotFound();
 
-            if(message.SenderUsername != username && message.RecipientUsername != username) return Unauthorized();
+            if (message.SenderUsername != username && message.RecipientUsername != username) return Unauthorized();
 
-            if(message.SenderUsername == username) message.SenderDeleted = true;
+            if (message.SenderUsername == username) message.SenderDeleted = true;
             else message.RecipientDeleted = true;
 
-            if(message.SenderDeleted && message.RecipientDeleted) _messageRepository.DeleteMessage(message);
+            if (message.SenderDeleted && message.RecipientDeleted) _messageRepository.DeleteMessage(message);
 
-            if(await _messageRepository.SaveAllAsync()) return Ok();
+            if (await _messageRepository.SaveAllAsync()) return Ok();
 
             return BadRequest("Failed to delete the message");
 

@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace API.Controllers
 {
-    public class AccountController : BaseApiController
+    public class AccountController : BaseApiController<AccountController>
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
@@ -37,7 +37,7 @@ namespace API.Controllers
             //user.UserName = registerDto.Username.ToLower();
             user.PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(registerDto.Password));
             user.PasswordSalt = hmac.Key;
-            
+
             _context.Users.Add(user);
 
             await _context.SaveChangesAsync();
@@ -79,7 +79,7 @@ namespace API.Controllers
             };
         }
 
-       
+
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());

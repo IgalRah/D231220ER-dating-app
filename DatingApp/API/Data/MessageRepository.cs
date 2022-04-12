@@ -42,7 +42,7 @@ namespace API.Data
         public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
         {
             var query = _context.Messages
-            
+
             .OrderByDescending(m => m.MessageSent)
             .AsQueryable();
 
@@ -53,7 +53,7 @@ namespace API.Data
                 _ => query.Where(u => u.Recipient.UserName == messageParams.Username && u.DateRead == null)
             };
 
-            query = query.Where(m => 
+            query = query.Where(m =>
                         (m.Recipient.UserName == messageParams.Username && !m.RecipientDeleted) ||
                         (m.Sender.UserName == messageParams.Username && !m.SenderDeleted));
 
@@ -78,8 +78,6 @@ namespace API.Data
             .OrderBy(m => m.MessageSent)
             .ToListAsync();
 
-
-
             // messages.ForEach(x => {
             //     if(x.DateRead == null && x.Recipient.UserName == currentUsername) {
             //         x.DateRead = DateTime.Now;
@@ -91,17 +89,13 @@ namespace API.Data
                 throw new Exception("could not save to DB all the data");
             }
 
-
             return _mapper.Map<IEnumerable<MessageDto>>(messages);
-
-
         }
 
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() < 0;
         }
-
 
         private async Task<int> updateUnread(List<Message> messages, string currentUsername)
         {

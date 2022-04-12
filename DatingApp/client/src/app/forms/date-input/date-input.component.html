@@ -4,11 +4,12 @@
     type="text"
     class="form-control"
     [formControl]="$any(ngControl.control)"
-    placeholder="{{label}}"
+    placeholder="{{ label }}"
     [bsConfig]="bsConfig"
     bsDatepicker
     [maxDate]="maxDate"
-    >
-    <div *ngIf="$any(ngControl.control)?.required" class="invalid-feedback">{{label}} is required </div>
-
+  />
+  <div *ngIf="$any(ngControl.control)?.required" class="invalid-feedback">
+    {{ label }} is required
+  </div>
 </div>

@@ -1,21 +1,24 @@
-import { MembersService } from './../services/members.service';
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import {
-  Router, Resolve,
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
-} from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Member } from '../models/member';
+} from '@angular/router'
+import { Observable, of } from 'rxjs'
+
+import { Member } from '../models/member'
+import { MembersService } from './../services/members.service'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MemberDetailedResolver implements Resolve<Member> {
-
-  constructor(private membersService:MembersService) {}
+  constructor(private membersService: MembersService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Member> {
-    return this.membersService.getMember(route.paramMap.get('username') as string);
+    return this.membersService.getMember(
+      route.paramMap.get('username') as string
+    )
   }
 }

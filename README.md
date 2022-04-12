@@ -1,10 +1,11 @@
 181. Introduction
+
+
     * this is another type of many to many relationship.
     * adding to this relationship the ability to box and unbox an unread messages.
     * using query params in angular
     * these messages will be on a different tab on on the details, so we want to be able to use a direct route to go there, we'll use query params to do that.
     * using route resolvers: the ability to get data when a route is activated but before the component is constructed
-
 
 182. Settging up the entities for messaging
 183. Setting up the message repository
@@ -24,8 +25,7 @@
 197. Deleting messages on the API
 198. Deleting messages on the client (+ understand event propagation)
 199. Section 15 summary:
-    1. more many to many relationships, what are do you think about how this M2M relationship has implemented?
-        * for me messages makes more sense, it;s not just likes, there is content the joint table represents
-    2. looking at query params, putting them in the url and reading them from the url
-    3. using route resolvers as means to get data before the component constructs (so life's easier without conditionals)
-
+200. more many to many relationships, what are do you think about how this M2M relationship has implemented?
+     - for me messages makes more sense, it;s not just likes, there is content the joint table represents
+201. looking at query params, putting them in the url and reading them from the url
+202. using route resolvers as means to get data before the component constructs (so life's easier without conditionals)

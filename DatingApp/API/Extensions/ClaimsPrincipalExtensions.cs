@@ -6,12 +6,12 @@ namespace API.Extensions
     {
         public static string GetUsername(this ClaimsPrincipal user)
         {
-            return user.FindFirst(ClaimTypes.Name)?.Value; // the name
+            return user.FindFirstValue(ClaimTypes.Name); // the name
         }
 
         public static int GetUserId(this ClaimsPrincipal user)
         {
-            return int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value); // the id
+            return int.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)); // the id
         }
     }
 }

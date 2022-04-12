@@ -2,27 +2,45 @@
 <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-primary">
   <div class="container">
     <a class="navbar-brand" routerLink="/">Tinder KnockOff</a>
+
     <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="currentUser$ | async">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/members">Matches</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/members">
+            Matches
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/lists">Lists</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/lists">
+            Lists
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/messages"> Messages</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/messages">
+            Messages
+          </a>
         </li>
       </ng-container>
 
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/errors">Errors</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/errors">
+          Errors
+        </a>
       </li>
     </ul>
 
     <div class="dropdown" *ngIf="currentUser$ | async as user" dropdown>
-      <img class="img" src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}" srcset="">
-      <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.knownAs | titlecase}}</a>
+      <img
+        class="img"
+        src="{{ user.photoUrl || './assets/user.png' }}"
+        alt="{{ user.username }}"
+        srcset=""
+      />
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        Welcome {{ user.knownAs | titlecase }}
+      </a>
 
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" routerLink="/member/edit">Edit Profile</a>
@@ -31,13 +49,32 @@
       </div>
     </div>
 
-    <form *ngIf="!(currentUser$ | async)" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()"
-      autocomplete="off">
-      <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"
-        placeholder="Username">
-      <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password"
-        placeholder="Password">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+    <form
+      *ngIf="!(currentUser$ | async)"
+      #loginForm="ngForm"
+      class="form-inline mt-2 mt-md-0"
+      (ngSubmit)="login()"
+      autocomplete="off"
+    >
+      <input
+        name="username"
+        [(ngModel)]="model.username"
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Username"
+      />
+
+      <input
+        name="password"
+        [(ngModel)]="model.password"
+        class="form-control mr-sm-2"
+        type="password"
+        placeholder="Password"
+      />
+
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Login
+      </button>
     </form>
   </div>
 </nav>

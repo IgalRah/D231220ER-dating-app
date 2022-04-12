@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace API.Controllers
 {
 
-    public class BuggyController: BaseApiController
+    public class BuggyController : BaseApiController<BuggyController>
     {
         private readonly DataContext _context;
 
@@ -49,14 +49,15 @@ namespace API.Controllers
         [HttpGet("server-error")]//api/buggy/server-error
         public ActionResult<string> GetServerError()
         {
-             var thing = _context.Users.Find(-1);
-             var thingToString = thing.ToString(); //NullReferenceExaption
-             return thingToString; // 🤣
+            var thing = _context.Users.Find(-1);
+            var thingToString = thing.ToString(); //NullReferenceExaption
+            return thingToString; // 🤣
         }
 
 
         [HttpGet("bad-request")]//api/buggy/bad-request
-        public ActionResult<string> GetBadRequest() {
+        public ActionResult<string> GetBadRequest()
+        {
             return BadRequest("this was not a good request");
         }
 

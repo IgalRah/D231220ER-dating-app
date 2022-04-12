@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -13,13 +12,15 @@ namespace API.Data
     public class LikesRepository : ILikesRepository
     {
         private readonly DataContext _context;
+
         public LikesRepository(DataContext context)
         {
             _context = context;
         }
-        public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
+
+        public async Task<UserLike> GetLikeAsync(AppUser user, AppUser likedUser)
         {
-            return await _context.Likes.FindAsync(likedUserId, sourceUserId);
+            return await _context.Likes.FirstOrDefaultAsync(l => l.SourceUser == user && l.LikedUser == likedUser);
         }
 
         public async Task<PagedList<LikeDto>> GetUserLikes(LikesParams likeParams)
@@ -28,18 +29,21 @@ namespace API.Data
             // 'liked by' => "which users have  liked  this user" => userId  is the liked user
 
             IQueryable<AppUser> users;
-            var likes  = _context.Likes.AsQueryable();
+            var likes = _context.Likes.AsQueryable();
 
-            if(likeParams.Predicate == "liked") {
+            if (likeParams.Predicate == "liked")
+            {
                 likes = likes.Where(like => like.SourceUserId == likeParams.UserId);
                 users = likes.Select(like => like.LikedUser);
             }
-            else {
+            else
+            {
                 likes = likes.Where(like => like.LikedUserId == likeParams.UserId);
                 users = likes.Select(like => like.SourceUser);
             }
 
-            var likedUsers = users.Select(user => new LikeDto {
+            var likedUsers = users.Select(user => new LikeDto
+            {
                 Age = user.DateOfBirth.CalculateAge(),
                 City = user.City,
                 Country = user.Country,
@@ -49,14 +53,26 @@ namespace API.Data
                 Username = user.UserName
             });
 
-            return await PagedList<LikeDto>.CreateAsync(likedUsers,likeParams.PageNumber, likeParams.PageSize);
+            return await PagedList<LikeDto>.CreateAsync(likedUsers, likeParams.PageNumber, likeParams.PageSize);
         }
 
-        public async Task<AppUser> GetUserWithLikes(int userId)
+        public async Task LoadUserLikesAsync(AppUser user)
         {
-            return await _context.Users
-            .Include(u => u.LikedUsers)
-            .FirstOrDefaultAsync(u => u.Id == userId);
+            await _context.Entry(user)
+                .Collection(b => b.LikedUsers)
+                .LoadAsync();
+        }
+
+        public async Task AddLikeAsync(UserLike like)
+        {
+            await _context.Likes.AddAsync(like);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteLikeAsync(UserLike like)
+        {
+            _context.Likes.Remove(like);
+            await _context.SaveChangesAsync();
         }
     }
 }

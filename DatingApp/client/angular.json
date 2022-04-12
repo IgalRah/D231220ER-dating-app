@@ -22,17 +22,12 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/bootswatch/dist/lux/bootstrap.min.css",
               "./node_modules/font-awesome/css/font-awesome.min.css",
               "./node_modules/ngx-toastr/toastr.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -74,14 +69,14 @@
           "configurations": {
             "production": {
               "browserTarget": "client:build:production",
-              "sslKey":"./ssl/server.key",
-              "sslCert":"./ssl/server.crt",
+              "sslKey": "./ssl/server.key",
+              "sslCert": "./ssl/server.crt",
               "ssl": true
             },
             "development": {
               "browserTarget": "client:build:development",
-              "sslKey":"./ssl/server.key",
-              "sslCert":"./ssl/server.crt",
+              "sslKey": "./ssl/server.key",
+              "sslCert": "./ssl/server.crt",
               "ssl": true
             }
           },
@@ -100,13 +95,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }

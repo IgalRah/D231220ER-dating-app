@@ -47,7 +47,7 @@ namespace API.Data
 
             if (userParams.Gender == null)
             {
-                return new PagedList<MemberDto>(new List<MemberDto>{}, 0, 0, 0);
+                return new PagedList<MemberDto>(new List<MemberDto> { }, 0, 0, 0);
             }
 
             return await PagedList<MemberDto>.CreateAsync
@@ -85,7 +85,7 @@ namespace API.Data
             .ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
+        public async Task<bool> SaveChangesAsync()
         {
             // var changes = _context.ChangeTracker.Entries<AppUser>().Count();
             // var numOfChanges = await _context.SaveChangesAsync(); 

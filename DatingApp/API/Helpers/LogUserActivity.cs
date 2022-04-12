@@ -13,7 +13,7 @@ namespace API.Helpers
         {
 
             var resultContext = await next();
-            if(!resultContext.HttpContext.User.Identity.IsAuthenticated) return;
+            if (!resultContext.HttpContext.User.Identity.IsAuthenticated) return;
 
             var userid = resultContext.HttpContext.User.GetUserId();
 
@@ -23,8 +23,8 @@ namespace API.Helpers
 
             user.LastActive = DateTime.Now;
 
-            await repo.SaveAllAsync();
-            
+            await repo.SaveChangesAsync();
+
         }
     }
 }

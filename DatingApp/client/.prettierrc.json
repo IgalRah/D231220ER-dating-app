@@ -1,0 +1,12 @@
+{
+  "semi": false,
+
+  "importOrder": ["^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": [
+    "typescript",
+    "classProperties",
+    "decorators-legacy"
+  ]
+}
