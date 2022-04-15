@@ -20,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 
 namespace API
 {
@@ -36,7 +37,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddApplicationServices(_config);
 
             services.AddControllers();
@@ -49,13 +50,15 @@ namespace API
 
             services.AddIdentityServices(_config);
 
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
-            
+
             if (env.IsDevelopment())
             {
                 // app.UseDeveloperExceptionPage();
@@ -66,11 +69,12 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
-            app.UseCors(policy => 
+
+            app.UseCors(policy =>
             policy
             .AllowAnyHeader()
             .AllowAnyMethod()
+            .AllowCredentials()
             .WithOrigins("https://localhost:4200"));
 
             app.UseAuthentication();
@@ -80,6 +84,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapHub<PresenceHub>("hubs/presence");
             });
         }
     }
