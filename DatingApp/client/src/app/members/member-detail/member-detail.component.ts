@@ -17,6 +17,7 @@ import { Member } from 'src/app/models/member'
 import { Message } from 'src/app/models/message'
 import { MembersService } from 'src/app/services/members.service'
 
+import { MemberCardComponent } from '../member-card/member-card.component'
 import { MessageService } from './../../services/message.service'
 
 @Component({
@@ -32,6 +33,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   activeTab: TabDirective
   messages: Message[] = []
   subscription: Subscription
+  memberCard: MemberCardComponent
 
   constructor(
     private memberService: MembersService,
@@ -96,4 +98,6 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   selectTab(tabId: number) {
     this.memberTabs.tabs[tabId].active = true
   }
+
+  toggleLike(likedToggle: MemberCardComponent) {}
 }
