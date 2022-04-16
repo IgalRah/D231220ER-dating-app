@@ -11,11 +11,16 @@ import {
   NgxGalleryImage,
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery'
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs'
 import { Subscription } from 'rxjs'
+import { take } from 'rxjs/operators'
 import { Member } from 'src/app/models/member'
 import { Message } from 'src/app/models/message'
+import { User } from 'src/app/models/user'
+import { AccountService } from 'src/app/services/account.service'
 import { MembersService } from 'src/app/services/members.service'
+import { PresenceService } from 'src/app/services/presence.service'
 
 import { MemberCardComponent } from '../member-card/member-card.component'
 import { MessageService } from './../../services/message.service'
@@ -33,16 +38,24 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   activeTab: TabDirective
   messages: Message[] = []
   subscription: Subscription
-  memberCard: MemberCardComponent
+  user: User
+  //memberCard: MemberCardComponent
 
   constructor(
     private memberService: MembersService,
     private route: ActivatedRoute,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    public presence: PresenceService,
+    private accountService: AccountService
+  ) {
+    this.accountService.currentUser$
+      .pipe(take(1))
+      .subscribe((user) => (this.user = user as User))
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
+    this.messageService.stopHubConnection()
   }
 
   ngOnInit() {
@@ -83,21 +96,24 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   onTabActivated(data: TabDirective) {
     this.activeTab = data
     if (this.activeTab.heading === 'Messages' && this.messages.length === 0) {
-      this.loadMessages()
+      this.messageService.createHubConnection(this.user, this.member.username)
+      // this.loadMessages()
+    } else {
+      this.messageService.stopHubConnection()
     }
   }
 
-  loadMessages() {
-    this.messageService
-      .getMessageThread(this.member.username)
-      .subscribe((m) => {
-        this.messages = m
-      })
-  }
+  // loadMessages() {
+  //   this.messageService
+  //     .getMessageThread(this.member.username)
+  //     .subscribe((m) => {
+  //       this.messages = m
+  //     })
+  // }
 
   selectTab(tabId: number) {
     this.memberTabs.tabs[tabId].active = true
   }
 
-  toggleLike(likedToggle: MemberCardComponent) {}
+  // toggleLike(likedToggle: MemberCardComponent) {}
 }

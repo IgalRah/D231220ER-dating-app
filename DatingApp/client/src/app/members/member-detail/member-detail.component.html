@@ -8,6 +8,13 @@
       />
 
       <div class="card-body">
+        <div
+          class="mb-2"
+          *ngIf="(presence.onlineUsers$ | async)?.includes(member.username)"
+        >
+          <i class="fa fa-user-circle text-info"></i>Online now
+        </div>
+
         <div>
           <strong>Location:</strong>
           <p>{{ member.city }}, {{ member.country }}</p>
@@ -66,7 +73,7 @@
       </tab>
 
       <tab (selectTab)="onTabActivated($event)" heading="Messages">
-        <app-member-messages [messages]="messages" [username]="member.username">
+        <app-member-messages [username]="member.username">
         </app-member-messages>
       </tab>
     </tabset>

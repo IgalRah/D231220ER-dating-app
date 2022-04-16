@@ -11,6 +11,12 @@
     <a routerLink="/members/{{ member.username }}">
       <h5 class="card-title d-inline-block">
         {{ member.knownAs }}, {{ member.age }}
+        <i
+          class="fa fa-id-badge"
+          [class.is-online]="
+            (presence.onlineUsers$ | async)?.includes(member.username)
+          "
+        ></i>
       </h5>
     </a>
 
@@ -23,7 +29,14 @@
       routerLink="/members/{{ member.username }}"
       [queryParams]="{ tab: 3 }"
     >
-      <i class="fa fa-envelope"></i>
+      <i class="fa fa-envelope"> </i>
+    </a>
+
+    <a class="card-link">
+      <button
+        (click)="toggleLike(member)"
+        class="fa fa-heart btn btn-primary btn-sm"
+      ></button>
     </a>
   </div>
 
